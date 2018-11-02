@@ -1,0 +1,50 @@
+
+
+ <!DOCTYPE html>
+ <html>
+ <head>
+     <meta charset="utf-8">
+     <title>Registration Form</title>
+     <link rel="stylesheet" type="text/css" href="style.css">
+ 
+ </head>
+ <body>
+         <header>        
+                 <div class="logo">SendIT</div>
+                     <nav>
+                         <ul>
+                             <li><a href="index.html">Home</a></li>
+                             <li><a href="services.html" >Services</a></li>
+                             <li><a href="#" onclick="redirector1()" >Courier Services</a></li>
+                         </ul>        
+                     </nav>
+         </header>
+     <div class="login_wrapper">
+         <div class="container">
+             <div class="signup">Register</div>
+           
+             <div class="signup-form">
+                 <input type="text" placeholder="Your Email Address..." class="input"><br />
+                 <input type="text" placeholder="Choose a Username..." class="input"><br />
+                 <input type="password" placeholder="Choose a Password..." class="input"><br />
+                 <input type="checkbox" name="vehicle" value="Bike"> I agree to SendIT’s <a href="#">terms and conditions</a><br><br>
+                 <div class="btn"><a href="login.html">Register</a></div>
+                 <span>Already Registered?<a href="#" onclick="redirector()">Login</a></span>
+              </div>
+          
+           
+         </div>
+   </div>
+   <script>
+                 function redirector(){
+                     window.location="login.html"
+                 }
+ 
+                 function redirector1(){
+                     window.location="login.html"
+                 }
+ 
+             
+         </script>
+ </body>
+ </html>
