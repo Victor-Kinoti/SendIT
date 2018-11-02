@@ -17,9 +17,10 @@ challenge 1 - You'll need Chrome to access the app, git or github..
 
 install git from https://www.linode.com/docs/development/version-control/how-to-install-git-on-linux-mac-and-windows/
 install chrome from https://support.google.com/chrome/answer/95346?co=GENIE.Platform%3DDesktop&hl=en-GB
-type git clone https://github.com/Victor-Kinoti/SendIT.git  on your terminal
+
 
 ### Output of terminal
+git clone https://github.com/Victor-Kinoti/SendIT.git  on your terminal
 ```
 ~ git clone https://github.com/Victor-Kinoti/SendIT.git
 Cloning into 'SendIT'...
