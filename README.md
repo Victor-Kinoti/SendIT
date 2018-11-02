@@ -39,18 +39,6 @@ Unpacking objects: 100% (70/70), done.
 Manual Tests for challenge 1
 
 
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
 ## Built With
 
 * Html
