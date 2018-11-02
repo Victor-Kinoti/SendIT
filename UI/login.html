@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Login Form</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+<body>
+		<header>        
+				<div class="logo">SendIT</div>
+					<nav>
+						<ul>
+							<li><a href="index.html"" class="active" >Home</a></li>
+							<li><a href="services.html" >Services</a></li>
+							<li><a href="#" onclick="redirector1()" >Courier Services</a></li>
+							
+						</ul>        
+					</nav>
+		</header>
+	<div class="login_wrapper">
+	    <div class="container">
+	      
+	      
+	      <div class="login">LOGIN</div>
+	      
+	      <div class="login-form">
+	          <input type="text" placeholder="Email Address..." class="input"><br />
+			  <input type="password" placeholder="Password..." class="input"><br />
+			  <p>Are you a user or an Admin?</p><br><br>
+			  	User: <input type="radio" name="user" value="user"> 
+				Admin: <input type="radio" name="user" value="admin"><br>,<br>
+	          <div class="btn"><a href="courier.html">log in</a></div>
+			  <span>Not Registered? <a href="#" onclick="redirector()">Here</a></span>
+	       </div>
+	      
+	    </div>
+  </div>
+  <script type="text/javascript">
+                function redirector(){
+                    window.location="register.html"
+                }
+
+                function redirector1(){
+                    window.location="login.html"
+                }
+
+                function redirector2(){
+                    window.location="courier.html"
+                }
+
+            
+        </script>
+</body>
+</html>
