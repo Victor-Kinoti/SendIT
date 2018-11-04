@@ -9,31 +9,36 @@
 <body>
 		<header>        
 				<div class="logo">SendIT</div>
+				<form>
 					<nav>
 						<ul>
+							<li><a href="admin.html" >Admin</a></li>
 							<li><a href="index.html"" class="active" >Home</a></li>
 							<li><a href="services.html" >Services</a></li>
 							<li><a href="#" onclick="redirector1()" >Courier Services</a></li>
 							
 						</ul>        
 					</nav>
+				</form>
 		</header>
 	<div class="login_wrapper">
 	    <div class="container">
 	      
 	      
 	      <div class="login">LOGIN</div>
-	      
+	      <form action="#">
+
+
 	      <div class="login-form">
-	          <input type="text" placeholder="Email Address..." class="input"><br />
-			  <input type="password" placeholder="Password..." class="input"><br />
+	          <input type="text" placeholder="Email Address..." class="input" required><br />
+			  <input type="password" placeholder="Password..." class="input" required><br />
 			  <p>Are you a user or an Admin?</p><br><br>
-			  	User: <input type="radio" name="user" value="user"> 
-				Admin: <input type="radio" name="user" value="admin"><br>,<br>
+			  	User:<input type="radio" name="user" value="user" required>
+				Admin: <input type="radio" name="user" value="admin" required><br>,<br>
 	          <div class="btn"><a href="courier.html">log in</a></div>
 			  <span>Not Registered? <a href="#" onclick="redirector()">Here</a></span>
 	       </div>
-	      
+	    </form>
 	    </div>
   </div>
   <script type="text/javascript">
