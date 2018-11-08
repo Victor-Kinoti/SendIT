@@ -44,4 +44,16 @@ class DataParcel(Resource):
 		}
 		result= make_response(jsonify(payload), 201)
 		result.content_type = 'application/json;charset=utf-8'
-		return result	
+		return result
+
+	def get(self):
+		"""gets all orders made"""
+		par = Parcel()
+		all_orders = par.get_all()
+		
+
+		payload = {
+			"Status":"Ok",
+			"Parcels": all_orders
+		}
+		return make_response(jsonify(payload),201)
