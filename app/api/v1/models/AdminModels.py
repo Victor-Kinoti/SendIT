@@ -38,3 +38,13 @@ class UserOrders(object):
             if item["user_id"] == user_id:
                 item['status'] == 'Delivered'
                 return True
+
+
+    def update_order_payment(self, user_id):
+        for item in UserOrders.orders:
+            if item["user_id"] == user_id:
+                if item['payment_status'] == 'Paid':
+                    item['payment_status'] == 'Not Paid'
+                else:
+                    item['payment_status'] == 'Paid'
+                return True
