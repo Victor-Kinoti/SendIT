@@ -78,3 +78,11 @@ class SingleParcel(Resource):
 			abort(make_response(jsonify(message="Not json format")))
 		res.content_type = 'application/json;charset=utf-8'
 		return res
+
+class CancelOrder(Resource):
+
+	def put(self, order_id):
+		order_id = str(order_id)
+		order_1 = Parcel()
+		order_1.cancel_order(order_id)
+		return make_response(jsonify({'Status': 'order has been canceled'}),201)
