@@ -57,3 +57,24 @@ class DataParcel(Resource):
 			"Parcels": all_orders
 		}
 		return make_response(jsonify(payload),201)
+
+class SingleParcel(Resource):
+
+
+	def get(self, order_id):
+		order_id = str(order_id)
+		par = Parcel()
+		one_order = par.get_one_parcel(order_id)
+		if one_order:
+			payload = {
+				"Status":"Ok",
+				"Parcels": one_order
+			}
+		else:
+			abort(make_response(jsonify(message="Not found")))
+		
+		res= make_response(jsonify(payload))
+		if res.content_type != 'application/json':
+			abort(make_response(jsonify(message="Not json format")))
+		res.content_type = 'application/json;charset=utf-8'
+		return res
