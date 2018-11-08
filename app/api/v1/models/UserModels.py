@@ -24,3 +24,8 @@ class Parcel(object):
 
 		Parcel.parcels.append(payload)
 		return True
+
+	def get_all(self):
+		"""Get all parcel orders
+		return: """
+		return Parcel.parcels
