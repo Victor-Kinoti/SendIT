@@ -29,3 +29,12 @@ class Parcel(object):
 		"""Get all parcel orders
 		return: """
 		return Parcel.parcels
+
+	def get_one_parcel(self,order_id):
+		"""Gets a specific order with order_id as arguments
+		param:order_id
+		:return:"""
+		
+		for item in Parcel.parcels:
+			if item["order_id"] == order_id:
+				return item
