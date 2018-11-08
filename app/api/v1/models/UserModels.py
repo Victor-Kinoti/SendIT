@@ -38,3 +38,9 @@ class Parcel(object):
 		for item in Parcel.parcels:
 			if item["order_id"] == order_id:
 				return item
+
+	def cancel_order(self, order_id):
+		for item in Parcel.parcels:
+			if item["order_id"] == order_id:
+				item['status'] = 'canceled'
+				return True
