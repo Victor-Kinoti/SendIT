@@ -1,5 +1,4 @@
 import uuid
-
 class UserOrders(object):
     orders = [{
         "user_id":str(uuid.uuid4().int),
@@ -32,14 +31,21 @@ class UserOrders(object):
 
     }]
 
+    def get_all_orders(self):
+        return UserOrders.orders
+
+    def get_one_user_order(self, user_id):
+        for item in UserOrders.orders:
+            if item["user_id"] == user_id:
+                return item
+
 
     def update_order_status(self, user_id):
         for item in UserOrders.orders:
             if item["user_id"] == user_id:
                 item['status'] == 'Delivered'
                 return True
-
-
+    
     def update_order_payment(self, user_id):
         for item in UserOrders.orders:
             if item["user_id"] == user_id:

@@ -1,7 +1,9 @@
-from ..models.UserModels import Parcel
+from ..models.UserModels import Parcel, User_model
 from flask_restful import Resource
 from flask import make_response, jsonify, request, abort
 from email.utils import parseaddr
+
+
 
 class DataParcel(Resource):
 	"""Utilizes data from an order by either getting all data or posting new data"""
@@ -44,7 +46,10 @@ class DataParcel(Resource):
 		}
 		result= make_response(jsonify(payload), 201)
 		result.content_type = 'application/json;charset=utf-8'
-		return result
+		return result	
+
+
+		
 
 	def get(self):
 		"""gets all orders made"""
@@ -56,7 +61,10 @@ class DataParcel(Resource):
 			"Status":"Ok",
 			"Parcels": all_orders
 		}
-		return make_response(jsonify(payload),201)
+		result= make_response(jsonify(payload),200)
+		result.content_type = 'application/json;charset=utf-8'
+		return result
+		
 
 class SingleParcel(Resource):
 
@@ -73,12 +81,12 @@ class SingleParcel(Resource):
 		else:
 			abort(make_response(jsonify(message="Not found")))
 		
-		res= make_response(jsonify(payload))
-		if res.content_type != 'application/json':
+		result= make_response(jsonify(payload))
+		if result.content_type != 'application/json':
 			abort(make_response(jsonify(message="Not json format")))
-		res.content_type = 'application/json;charset=utf-8'
-		return res
-
+		result.content_type = 'application/json;charset=utf-8'
+		return result 
+		
 class CancelOrder(Resource):
 
 	def put(self, order_id):
@@ -86,3 +94,76 @@ class CancelOrder(Resource):
 		order_1 = Parcel()
 		order_1.cancel_order(order_id)
 		return make_response(jsonify({'Status': 'order has been canceled'}),201)
+
+
+class RegisterUser(Resource):
+	def post(self):		
+			
+		data = request.get_json() or {}
+		if 'username' not in data:
+			abort(make_response(jsonify(message="Username missing"),400))
+		if 'email' not in data:
+			abort(make_response(jsonify(message="Email missing"),400))
+		if 'con_password' not in data:
+			abort(make_response(jsonify(message="Confirmation password missing"),400))
+		if 'password' not in data:
+			abort(make_response(jsonify(message="Password missing"),400))
+		if 'role' not in data:
+			abort(make_response(jsonify(message="Please check a role"),400))
+
+		if data['password'] != data['con_password']:
+			abort(make_response(jsonify(message="Password and confirm password not matching"),400))
+		if '@' in parseaddr(data['email']):
+			abort(make_response(jsonify(message="wrong email format"),400))
+			
+		if len(data)==0:
+			abort(make_response(jsonify(message="Fill in the fields"),400))
+		
+		user_1 = User_model()
+		user_1.create_user(
+			data["username"],
+			data["email"],
+			data["password"],
+			data["con_password"],
+			data["role"]
+			)
+
+		payload = {
+			"Status":"created",
+			
+		}
+		result= make_response(jsonify(payload), 201)
+		result.content_type = 'application/json;charset=utf-8'
+		return result
+
+
+class UserLogin(Resource):
+	def post(self):
+		
+
+		data = request.get_json()
+		if 'email' not in data:
+			abort(make_response(jsonify(message="Email missing"),400))
+		if 'password' not in data:
+			abort(make_response(jsonify(message="Password missing"),400))
+		if 'role' not in data:
+			abort(make_response(jsonify(message="Please check a role"),400))
+		if len(data)==0:
+			abort(make_response(jsonify(message="Fill in the fields"),400))
+
+		user_1 = User_model()
+		user_1.login_user(
+			data["email"],
+			data["password"],
+			data["role"]
+			)
+
+		payload = {
+			"Status":"created",
+			
+		}
+		result= make_response(jsonify(payload), 201)
+		result.content_type = 'application/json;charset=utf-8'
+		return result
+
+
