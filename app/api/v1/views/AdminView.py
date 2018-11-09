@@ -2,6 +2,21 @@ from ..models.AdminModels import UserOrders
 from flask_restful import Resource
 from flask import make_response, jsonify, request, abort
 
+class Admin_all_Orders(Resource):
+	def get(self):
+		"""gets all orders made"""
+		order_1 = UserOrders()
+		all_orders = order_1.get_all_orders()
+		
+
+		payload = {
+			"Status":"Ok",
+			"Parcels": all_orders
+		}
+		result= make_response(jsonify(payload),200)
+		result.content_type = 'application/json;charset=utf-8'
+		return result
+
 class admin_update_order_status(Resource):
 	def put(self, user_id):
 		user_id = str(user_id)

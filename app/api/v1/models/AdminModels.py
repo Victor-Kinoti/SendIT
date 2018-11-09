@@ -32,7 +32,9 @@ class UserOrders(object):
 
     }]
 
-
+    def get_all_orders(self):
+        return UserOrders.orders
+        
     def update_order_status(self, user_id):
         for item in UserOrders.orders:
             if item["user_id"] == user_id:
