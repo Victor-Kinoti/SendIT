@@ -113,5 +113,45 @@ class UserLogin(Resource):
 			
 		}
 		result= make_response(jsonify(payload), 201)
+		if result.content_type == 'application/json;charset=utf-8':
+			return result
+		return make_response(jsonify({"Status": "Wrong Content!!"}))
+class RegisterUser(Resource):
+	def post(self):		
+			
+		data = request.get_json() or {}
+		if 'username' not in data:
+			abort(make_response(jsonify(message="Username missing"),400))
+		if 'email' not in data:
+			abort(make_response(jsonify(message="Email missing"),400))
+		if 'con_password' not in data:
+			abort(make_response(jsonify(message="Confirmation password missing"),400))
+		if 'password' not in data:
+			abort(make_response(jsonify(message="Password missing"),400))
+		if 'role' not in data:
+			abort(make_response(jsonify(message="Please check a role"),400))
+
+		if data['password'] != data['con_password']:
+			abort(make_response(jsonify(message="Password and confirm password not matching"),400))
+		if '@' in parseaddr(data['email']):
+			abort(make_response(jsonify(message="wrong email format"),400))
+			
+		if len(data)==0:
+			abort(make_response(jsonify(message="Fill in the fields"),400))
+		
+		user_1 = User_model()
+		user_1.create_user(
+			data["username"],
+			data["email"],
+			data["password"],
+			data["con_password"],
+			data["role"]
+			)
+
+		payload = {
+			"Status":"created",
+			
+		}
+		result= make_response(jsonify(payload), 201)
 		result.content_type = 'application/json;charset=utf-8'
 		return result
