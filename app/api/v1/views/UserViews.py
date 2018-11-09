@@ -2,36 +2,9 @@ from ..models.UserModels import Parcel, User_model
 from flask_restful import Resource
 from flask import make_response, jsonify, request, abort
 from email.utils import parseaddr
-from werkzeug.security import generate_password_hash, check_password_hash
-from ....instance import config
-from functools import wraps
-from werkzeug.security import generate_password_hash, check_password_hash
-import jwt
 
-def token_required(f): ## f is function that gets decorated
-	@wraps(f)
-	def decorated(*args, **kwargs):
-		token = None
 
-		if 'x-access-token' in request.headers:  ### x-access-token is a header where the token is passed
-			token = request.headers['x-access-token']
-			print (token)
 
-		if not token:
-			return jsonify({'message' : 'Token is missing'}), 401
-
-		try:
-			data = jwt.decode(token, config.Config.SECRET_KEY) ## data == public-id & exp
-			print ('---------------------------------------------------')
-
-			print(data) 
-			current_user = request.get_json()["username"]
-		except:
-			return jsonify({'message' : 'Token is invalid!'}), 401
-
-		return f(current_user, *args, **kwargs) ##pass user object to the route
-
-	return decorated
 
 class DataParcel(Resource):
 	"""Utilizes data from an order by either getting all data or posting new data"""
