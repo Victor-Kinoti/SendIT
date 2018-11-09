@@ -48,3 +48,8 @@ class UserOrders(object):
                 else:
                     item['payment_status'] == 'Paid'
                 return True
+
+    def get_one_user_order(self, user_id):
+        for item in UserOrders.orders:
+            if item["user_id"] == user_id:
+                return item
