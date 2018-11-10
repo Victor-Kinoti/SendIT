@@ -38,7 +38,8 @@ class DataParcel(Resource):
 			data["recipient_id"],
 			data["item_type"],
 			data["weight"],
-			data["status"]
+			data["status"],
+			data['name']
 			)
 
 		payload = {

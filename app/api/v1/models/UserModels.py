@@ -3,23 +3,26 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 class Parcel(object):
 	parcels = []
-	def create_order(self,pickup_addr,destination_addr,item_type,recipient_name,recipient_id,weight,status):
-		self.pickup_addr = pickup_addr
+	def create_order(self, destination_addr, pickup_addr,recipient_name,recipient_id,item_type,weight,status,name):
 		self.destination_addr = destination_addr
+		self.pickup_addr = pickup_addr
 		self.recipient_name = recipient_name
 		self.recipient_id = recipient_id
 		self.item_type = item_type
 		self.weight = weight
 		self.status = status
+		self.name = name
 
 		payload  ={
 		"order_id": str(uuid.uuid4().int),
-		"pickup_address":self.pickup_addr,
 		"destination_address":self.destination_addr,
+		"pickup_address":self.pickup_addr,
 		"recipient_name":self.recipient_name,
 		"recipient_id":self.recipient_id,
 		"item_type":self.item_type,
-		"status":self.status
+		"weight":self.weight,
+		"status":self.status,
+		"name":self.name
 		}
 
 		Parcel.parcels.append(payload)
@@ -38,6 +41,12 @@ class Parcel(object):
 		for item in Parcel.parcels:
 			if item["order_id"] == order_id:
 				return item
+
+	def get_one_user_orders(self, name):
+		for order in Parcel.parcels:
+			if order['name'] == name:
+				return order
+			return "No such order"
 
 
 	def cancel_order(self, order_id):

@@ -1,4 +1,5 @@
 from ..models.AdminModels import UserOrders
+from ..models.UserModels import Parcel
 from flask_restful import Resource
 from flask import make_response, jsonify, request, abort
 
@@ -19,23 +20,11 @@ class Admin_all_Orders(Resource):
 		return result
 
 class Admin_user_all_Order(Resource):
-	def get(self, user_id):
-		user_id = str(user_id)
-		order_1 = UserOrders()
-		one_order = order_1.get_one_user_order(user_id)
-		if one_order:
-			payload = {
-				"Status":"Ok",
-				"Parcels": one_order
-			}
-		else:
-			abort(make_response(jsonify(message="Not found")),404)
-		
-		result= make_response(jsonify(payload))
-		if result.content_type != 'application/json':
-			abort(make_response(jsonify(message="Not json format")),404)
-		result.content_type = 'application/json;charset=utf-8'
-		return result
+	def get(self, name):
+		for order in Parcel.parcels:
+			if order['name'] == name:
+				return order
+			return "No such order"
 
 class admin_update_order_status(Resource):
 	def put(self, user_id):
