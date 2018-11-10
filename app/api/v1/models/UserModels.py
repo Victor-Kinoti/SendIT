@@ -30,7 +30,6 @@ class Parcel(object):
 	def get_all(self):
 		"""Get all parcel orders
 		return: """
-		print(type(Parcel.parcels[0]["status"]))
 		return Parcel.parcels
 
 	def get_one_parcel(self,order_id):
@@ -54,6 +53,12 @@ class Parcel(object):
 			if item["order_id"] == order_id:
 				item['status'] = 'canceled'
 				return True
+
+	def get_user_orders(self, name):
+		parcels = [item for item in Parcel.parcels
+                   if item['name'] == name]
+		return parcels	
+
 
 class User_model(object):
 	fields = []

@@ -36,6 +36,16 @@ class ParcelModelCase(unittest.TestCase):
         self.request_7 = json.dumps({
             "username":"Keynote", "password":"pass", "con_password":"pass", "role":"admin"
         })
+        self.data_1 = json.dumps({ "user_id":"1", "pickup_address":"Nairobi",\
+         "destination_address":"Meru","order_type":"Parcel", "payment_status":"Not Paid", \
+         "order_status":"Delivered"
+
+        })
+        self.data_2 = json.dumps({"destination_address":"Nairobi","pickup_address":"kisumu",\
+        "recipient_name":"Victor","recipient_id":"35526","item_type":"letter"\
+        ,"name":"Vik","status":"Delivered"
+
+})
 
     def test_create_order(self):
         res = self.client.post('/api/v1/parcels', data=self.request_1, content_type='application/json')
@@ -96,6 +106,19 @@ class ParcelModelCase(unittest.TestCase):
         assert output['message'] == "Email missing"
         assert res.content_type == 'application/json'
         assert res.status_code == 400
+
+    def test_payment_status(self):
+       
+        res = self.client.put("/api/v1/users/1/paid", data=self.data_1, content_type='application/json')
+        output = json.loads(res.data.decode())
+        assert output['message'] == 'order paid!'
+        assert res.status_code == 200
+
+    def test_delivered_status(self):
+        res = self.client.put("/api/v1/users/1/delivered", data=self.data_1, content_type='application/json')
+        output = json.loads(res.data.decode())
+        assert output['message'] == 'order has been delivered!'
+        assert res.status_code == 200        
 
 
 if __name__ == '__main__':

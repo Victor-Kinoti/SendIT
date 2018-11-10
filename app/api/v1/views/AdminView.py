@@ -20,22 +20,65 @@ class Admin_all_Orders(Resource):
 		return result
 
 class Admin_user_all_Order(Resource):
+	"""Gets all orders of a certain user
+	param name
+	return:jsonified response of the order
+	"""
+		
 	def get(self, name):
-		for order in Parcel.parcels:
-			if order['name'] == name:
-				return order
-			return "No such order"
+
+		try:
+			name = str(name)
+		except Exception:
+			return make_response(jsonify({
+					"Message": "provide users name string format",
+					"Status":"Bad request"
+				}),400)
+		par = Parcel()
+		user_orders = par.get_user_orders(name)
+		if len(user_orders)>0:
+			payload = {
+				"Status": "OK",
+				"parcels": user_orders
+			}
+
+			result = make_response(jsonify(payload),200)
+			result.content_type = 'application/json;charset=utf-8'
+			return result
+		return make_response(jsonify({
+			'Message':"Resource not available!",
+			'Status': 'Not Found'
+		}),400)
 
 class admin_update_order_status(Resource):
 	def put(self, user_id):
-		user_id = str(user_id)
+		try:
+			user_id = str(user_id)
+		except Exception:
+			return make_response(jsonify({
+				'Status':'Bad request'
+			}),400)
 		order_1 = UserOrders()
 		order_1.update_order_status(user_id)
-		return make_response(jsonify({'message': 'order has been delivered!'}),200)
+		if order_1:
+			return make_response(jsonify({'message':\
+			 'order has been delivered!'}),200)
+		return make_response(jsonify({
+			'Status':'Not Found'
+		}))
 
 class admin_update_payment_status(Resource):
 	def put(self, user_id):
-		user_id = str(user_id)
+		try:
+			user_id = str(user_id)
+		except Exception:
+			return make_response(jsonify({
+				'Status':'Bad request'
+			}),400)
 		order_1 = UserOrders()
 		order_1.update_order_payment(user_id)
-		return make_response(jsonify({"message": "order paid!"}),200)
+		if order_1:
+			return make_response(jsonify({"message": "order paid!"}),200)
+		return make_response(jsonify({
+			'Status':'Not Found'
+		}))

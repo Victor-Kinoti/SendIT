@@ -6,7 +6,7 @@ class UserOrders(object):
         "destination_address":"Meru",
         "order_type":"Parcel",
         "payment_status":"Not Paid",
-        "order_status":"Delivered",
+        "order_status":"Delivered"
 
 
     },
@@ -16,7 +16,7 @@ class UserOrders(object):
         "destination_address":"Thika",
         "order_type":"Envelope",
         "payment_status":"Paid",
-        "order_status":"Delivered",
+        "order_status":"Delivered"
 
 
     },
@@ -26,7 +26,7 @@ class UserOrders(object):
         "destination_address":"Nakuru",
         "order_type":"Parcel",
         "payment_status":"Paid",
-        "order_status":"InTransit",
+        "order_status":"InTransit"
 
 
     }]
@@ -43,11 +43,12 @@ class UserOrders(object):
     def update_order_status(self, user_id):
         for item in UserOrders.orders:
             if item["user_id"] == user_id:
-                item['status'] == 'Delivered'
+                item['order_status'] == 'Delivered'
                 return True
     
     def update_order_payment(self, user_id):
         for item in UserOrders.orders:
+           
             if item["user_id"] == user_id:
                 if item['payment_status'] == 'Paid':
                     item['payment_status'] == 'Not Paid'
