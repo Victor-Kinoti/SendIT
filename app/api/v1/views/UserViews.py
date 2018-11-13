@@ -131,7 +131,7 @@ class RegisterUser(Resource):
 			)
 
 		payload = {
-			"Status":"created",
+			"Status":"User created",
 			
 		}
 		result= make_response(jsonify(payload), 201)
@@ -161,7 +161,7 @@ class UserLogin(Resource):
 			)
 
 		payload = {
-			"Status":"created",
+			"Status":"User Logged in",
 			
 		}
 		result= make_response(jsonify(payload), 201)

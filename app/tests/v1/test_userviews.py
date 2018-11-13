@@ -69,7 +69,7 @@ class ParcelModelCase(unittest.TestCase):
         output = json.loads(res.data.decode())
         assert res.status_code == 201
         assert res.content_type == 'application/json;charset=utf-8'
-        assert output['Status'] == 'created'
+        assert output['Status'] == 'User created'
 
     def test_pass_not_matching(self):
         res = self.client.post("/api/v1/register", data=self.request_3, content_type='application/json')
@@ -96,7 +96,7 @@ class ParcelModelCase(unittest.TestCase):
     def test_user_login(self):
         res = self.client.post("/api/v1/login", data=self.request_6, content_type='application/json')
         output = json.loads(res.data.decode())
-        assert output['Status'] == 'created'
+        assert output['Status'] == 'User Logged in'
         assert res.status_code == 201
         assert res.content_type == 'application/json;charset=utf-8'
 
