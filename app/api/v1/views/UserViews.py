@@ -1,4 +1,4 @@
-from ..models.UserModels import Parcel, User_model
+from ..models.UserModels import Order, User_model
 from flask_restful import Resource
 from flask import make_response, jsonify, request, abort
 from email.utils import parseaddr
@@ -30,7 +30,7 @@ class DataParcel(Resource):
 		if len(data)==0:
 			abort(make_response(jsonify(message="Fill in the fields"),400))
 
-		par = Parcel()
+		par = Order()
 		par.create_order(
 			data["destination_address"],
 			data["pickup_address"],
@@ -55,13 +55,13 @@ class DataParcel(Resource):
 
 	def get(self):
 		"""gets all orders made"""
-		par = Parcel()
+		par = Order()
 		all_orders = par.get_all()
 		
 
 		payload = {
 			"Status":"Ok",
-			"Parcels": all_orders
+			"Orders": all_orders
 		}
 		result= make_response(jsonify(payload),200)
 		result.content_type = 'application/json;charset=utf-8'
@@ -73,12 +73,12 @@ class SingleParcel(Resource):
 
 	def get(self, order_id):
 		order_id = str(order_id)
-		par = Parcel()
-		one_order = par.get_one_parcel(order_id)
+		par = Order()
+		one_order = par.get_one_order(order_id)
 		if one_order:
 			payload = {
 				"Status":"Ok",
-				"Parcels": one_order
+				"Orders": one_order
 			}
 		else:
 			abort(make_response(jsonify(message="Not found")))
@@ -93,7 +93,7 @@ class CancelOrder(Resource):
 
 	def put(self, order_id):
 		order_id = str(order_id)
-		order_1 = Parcel()
+		order_1 = Order()
 		order_1.cancel_order(order_id)
 		return make_response(jsonify({'Status': 'order has been canceled'}),201)
 

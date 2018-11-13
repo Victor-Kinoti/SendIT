@@ -1,5 +1,5 @@
 from ..models.AdminModels import UserOrders
-from ..models.UserModels import Parcel
+from ..models.UserModels import Order
 from flask_restful import Resource
 from flask import make_response, jsonify, request, abort
 
@@ -13,7 +13,7 @@ class Admin_all_Orders(Resource):
 
 		payload = {
 			"Status":"Ok",
-			"Parcels": all_orders
+			"Orders": all_orders
 		}
 		result= make_response(jsonify(payload),200)
 		result.content_type = 'application/json;charset=utf-8'
@@ -34,12 +34,12 @@ class Admin_user_all_Order(Resource):
 					"Message": "provide users name string format",
 					"Status":"Bad request"
 				}),400)
-		par = Parcel()
+		par = Order()
 		user_orders = par.get_user_orders(name)
 		if len(user_orders)>0:
 			payload = {
 				"Status": "OK",
-				"parcels": user_orders
+				"orders": user_orders
 			}
 
 			result = make_response(jsonify(payload),200)

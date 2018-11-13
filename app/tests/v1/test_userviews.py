@@ -2,7 +2,7 @@ import unittest
 import json
 from ... import create_app
 from ...api.v1.views import UserViews
-from ...api.v1.models.UserModels import Parcel
+from ...api.v1.models.UserModels import Order
 
 class ParcelModelCase(unittest.TestCase):
     def setUp(self):

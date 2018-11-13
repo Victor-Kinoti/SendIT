@@ -1,8 +1,8 @@
 import uuid
 from werkzeug.security import generate_password_hash, check_password_hash
 
-class Parcel(object):
-	parcels = []
+class Order(object):
+	orders = []
 	def create_order(self, destination_addr, pickup_addr,recipient_name,recipient_id,item_type,weight,status,name):
 		self.destination_addr = destination_addr
 		self.pickup_addr = pickup_addr
@@ -25,39 +25,39 @@ class Parcel(object):
 		"name":self.name
 		}
 
-		Parcel.parcels.append(payload)
+		Order.orders.append(payload)
 		return True
 	def get_all(self):
-		"""Get all parcel orders
+		"""Get all orders
 		return: """
-		return Parcel.parcels
+		return Order.orders
 
-	def get_one_parcel(self,order_id):
+	def get_one_order(self,order_id):
 		"""Gets a specific order with order_id as arguments
 		param:order_id
 		:return:"""
 		
-		for item in Parcel.parcels:
+		for item in Order.orders:
 			if item["order_id"] == order_id:
 				return item
 
 	def get_one_user_orders(self, name):
-		for order in Parcel.parcels:
+		for order in Order.orders:
 			if order['name'] == name:
 				return order
 			return "No such order"
 
 
 	def cancel_order(self, order_id):
-		for item in Parcel.parcels:
-			if item["order_id"] == order_id:
-				item['status'] = 'canceled'
+		for order in Order.orders:
+			if order["order_id"] == order_id:
+				order['status'] = 'canceled'
 				return True
 
 	def get_user_orders(self, name):
-		parcels = [item for item in Parcel.parcels
-                   if item['name'] == name]
-		return parcels	
+		orders = [order for order in Order.orders
+                   if order['name'] == name]
+		return orders	
 
 
 class User_model(object):
