@@ -1,4 +1,5 @@
 from ..models.UserModels import Order, User_model
+from validate_email import validate_email
 from flask_restful import Resource
 from flask import make_response, jsonify, request, abort
 from email.utils import parseaddr
@@ -103,7 +104,7 @@ class RegisterUser(Resource):
 
 		if data['password'] != data['con_password']:
 			abort(make_response(jsonify(message="Password and confirm password not matching"),400))
-		if '@' in parseaddr(data['email']):
+		if not validate_email(data['email']):
 			abort(make_response(jsonify(message="wrong email format"),400))
 			
 		if len(data)==0:

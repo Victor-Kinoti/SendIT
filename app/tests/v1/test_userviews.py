@@ -36,6 +36,9 @@ class ParcelModelCase(unittest.TestCase):
         self.request_7 = json.dumps({
             "username":"Keynote", "password":"pass", "con_password":"pass", "role":"admin"
         })
+        self.request_8 = json.dumps({
+            "username":"Keynote", "email":"vikgmail.com","password":"pass", "con_password":"pass", "role":"admin"
+        })        
         self.data_1 = json.dumps({ "user_id":"1", "pickup_address":"Nairobi",\
          "destination_address":"Meru","order_type":"Parcel", "payment_status":"Not Paid", \
          "order_status":"Delivered"
@@ -99,6 +102,13 @@ class ParcelModelCase(unittest.TestCase):
         assert output['Status'] == 'User Logged in'
         assert res.status_code == 201
         assert res.content_type == 'application/json;charset=utf-8'
+
+    def test_email_is_valid(self):
+        res = self.client.post("/api/v1/register", data=self.request_8, content_type='application/json')
+        output = json.loads(res.data.decode())
+        assert res.status_code == 400
+        assert output['message'] == "wrong email format"
+
 
     def test_email_missing(self):
         res = self.client.post("/api/v1/register", data=self.request_7, content_type='application/json')
